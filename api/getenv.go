@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	consul_client "github.com/vietwow/getevn/pkg/consul_client"
+	consul_client "github.com/vietwow/getenv/pkg/consul_client"
 
 	"github.com/vietwow/getenv/model"
 )

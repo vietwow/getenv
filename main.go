@@ -10,7 +10,7 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 
 	"github.com/labstack/echo"
-	"github.com/vietwow/getevn/api"
+	"github.com/vietwow/getenv/api"
 )
 
 
