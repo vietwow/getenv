@@ -1,7 +1,7 @@
 package api
 
 import (
-	"time"
+	"fmt"
 
 	"github.com/labstack/echo"
 	consul_client "github.com/vietwow/getenv/pkg/consul_client"
@@ -18,7 +18,7 @@ func GetURL(c echo.Context) {
 	}
 
     // Init consul client
-    cClient := consul_client.NewConsulClient()
+    cClient := consul_client.RegisterService()
 
 	return c.JSONBlob(
 		http.StatusOK,

@@ -12,7 +12,7 @@ type Service struct {
 	ConsulAgent *consul.Agent
 }
 
-func NewConsulClient(addrs []string, ttl time.Duration) (*Service, error) {
+func RegisterService(addrs []string, ttl time.Duration) (*Service, error) {
 	s := new(Service)
 	s.Name = "webkv"
 	s.TTL = ttl

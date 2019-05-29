@@ -12,7 +12,7 @@ update:
 	go mod vendor
 
 build:
-	go build '-mod=vendor' $(LDFLAGS) -a -installsuffix cgo -o /go/bin/kafka-sumo ./cmd/forwarder/
+	go build '-mod=vendor' $(LDFLAGS) -a -installsuffix cgo -o /go/bin/getenv ./cmd/forwarder/
 
 test:
 	go test
