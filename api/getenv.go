@@ -6,7 +6,7 @@ import (
 	"github.com/labstack/echo"
 	consul_client "github.com/vietwow/getevn/pkg/consul_client"
 
-	"gitlab.com/vietwow/getenv/model"
+	"github.com/vietwow/getenv/model"
 )
 
 
