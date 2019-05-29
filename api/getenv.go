@@ -17,15 +17,15 @@ func GetURL(c echo.Context) {
 		return err
 	}
 
-    // Init consul client
-    cClient := consul_client.RegisterService()
+    //
+    URL := consul_client.RegisterService(Request.AppName)
 
 	return c.JSONBlob(
 		http.StatusOK,
 		[]byte(
 		  fmt.Sprintf(`{
 		    "URL": %s
-		  }`, Request.URL),
+		  }`, URL),
 		),
 	)
 }

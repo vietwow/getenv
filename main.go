@@ -1,11 +1,7 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"log"
-	"os"
-	"strings"
 
 	"gopkg.in/alecthomas/kingpin.v2"
 

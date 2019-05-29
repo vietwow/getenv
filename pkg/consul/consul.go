@@ -17,11 +17,6 @@ func RegisterService(addrs []string, ttl time.Duration) (*Service, error) {
 	s.Name = "webkv"
 	s.TTL = ttl
 
-	ok, err := s.Check()
-	if !ok {
-		return nil, err
-	}
-
 	c, err := consul.NewClient(consul.DefaultConfig())
 	if err != nil {
 		return nil, err
