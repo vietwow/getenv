@@ -1,0 +1,21 @@
+---
+version: '2'
+services:
+  consul:
+    image: consul:latest
+    command: "agent -server -bootstrap -ui -client=0.0.0.0 -log-level=debug"
+    ports:
+      - '8300:8300'
+      - '8301:8301'
+      - '8302:8302'
+      - '8400:8400'
+      - '8500:8500'
+      - '8600:53/udp'
+    environment:
+      
+  getenv:
+    image: vietwow/getenv:latest
+    depends_on:
+      - consul
+    environment:
+      
