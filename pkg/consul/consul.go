@@ -68,7 +68,7 @@ func GetURLFromAppName(AppName string) string {
 		log.Fatal(err)
 	}
 
-    fmt.Println("hahaha")
+	fmt.Println("hahaha")
 	URL, _, err := c.KV().Get(AppName, nil)
 	fmt.Println(AppName)
 	fmt.Println("hehe")
