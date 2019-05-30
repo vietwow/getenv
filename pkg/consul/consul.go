@@ -1,7 +1,6 @@
 package consul_client
 
 import (
-	"time"
 	"log"
 
 	consul "github.com/hashicorp/consul/api"
@@ -17,12 +16,12 @@ import (
 func RegisterService(AppName string, URL string) {
 	c, err := consul.NewClient(consul.DefaultConfig())
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
-    pair := &api.KVPair{Key: AppName, Value: []byte(URL)}
+    pair := &consul.KVPair{Key: AppName, Value: []byte(URL)}
 
-    if _, err := c.Put(pair, nil); err != nil {
+    if _, err := c.KV().Put(pair, nil); err != nil {
         log.Fatal(err)
     } else {
     	log.Println("register (or update) service '", pair.Key, "' successfully")
@@ -30,15 +29,15 @@ func RegisterService(AppName string, URL string) {
 }
 
 // deregister the service
-func DeRegisterService(AppName string, URL string) {
+func DeRegisterService(AppName string) {
 	c, err := consul.NewClient(consul.DefaultConfig())
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
-    pair := &api.KVPair{Key: AppName}
+    pair := &consul.KVPair{Key: AppName}
 
-    if _, err := c.Delete(pair.Key, nil); err != nil {
+    if _, err := c.KV().Delete(pair.Key, nil); err != nil {
         log.Fatal(err)
     } else {
         log.Println("deregister service '", pair.Key, "' successfully")
@@ -46,29 +45,28 @@ func DeRegisterService(AppName string, URL string) {
 }
 
 // list all services
-func ListAllService() {
+// func ListAllService() error {
+// 	// c, err := consul.NewClient(consul.DefaultConfig())
+// 	// if err != nil {
+// 	// 	return err
+// 	// }
+
+//     // TODO
+//     return err
+// }
+
+func GetURLFromAppName(AppName string) string {
 	c, err := consul.NewClient(consul.DefaultConfig())
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
-    // TODO
-}
-
-func GetURLFromAppName(AppName string) {
-	c, err := consul.NewClient(consul.DefaultConfig())
+	URL, _, err := c.KV().Get(AppName, nil)
 	if err != nil {
-		return nil, err
-	}
-
-	URL, _, err := consul.KV().Get(AppName, nil)
-	if err != nil {
-		fmt.Fprintf(w, "Error. %s", err)
-		return
+		log.Fatal(err)
 	}
 	if URL.Value == nil {
-		fmt.Fprintf(w, "Configuration empty")
-		return
+		log.Println("Configuration empty")
 	}
 	val := string(URL.Value)
 

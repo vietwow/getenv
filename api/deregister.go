@@ -1,8 +1,6 @@
 package api
 
 import (
-	"fmt"
-
 	"net/http"
 	"github.com/labstack/echo"
 	consul_client "github.com/vietwow/getenv/pkg/consul"
@@ -11,7 +9,7 @@ import (
 )
 
 
-func DeRegister(c echo.Context) {
+func DeRegister(c echo.Context) error {
 	// Bind the input data to ExampleRequest
 	Request := new(model.Request)
 	if err := c.Bind(Request); err != nil {
@@ -19,7 +17,7 @@ func DeRegister(c echo.Context) {
 	}
 
     //
-    err := consul_client.DeRegisterService(Request.AppName)
+    consul_client.DeRegisterService(Request.AppName)
 
 	return c.NoContent(http.StatusNoContent)
 }

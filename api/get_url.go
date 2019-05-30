@@ -11,7 +11,7 @@ import (
 )
 
 
-func GetURL(c echo.Context) {
+func GetURL(c echo.Context) error {
 	// Bind the input data to ExampleRequest
 	Request := new(model.Request)
 	if err := c.Bind(Request); err != nil {

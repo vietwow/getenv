@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 
 	"gopkg.in/alecthomas/kingpin.v2"
 
@@ -9,6 +8,9 @@ import (
 	"github.com/vietwow/getenv/api"
 )
 
+var (
+    version          = "0.0.0"
+)
 
 func main() {
     kingpin.Version(version)
@@ -21,11 +23,11 @@ func main() {
     // e.GET("/register/:url", api.Register())
     // e.GET("/deregister/:url", api.DeRegister())
     // e.GET("/list/:url", api.List())
-    e.GET("/services", api.List())
-    e.GET("/services/:id", api.GetURL())
-    e.POST("/services", api.Register())
-    e.PUT("/services", api.Register())
-    e.DELETE("/services/:id", api.DeRegister())
+    e.GET("/services", api.List)
+    e.GET("/services/:AppName", api.GetURL)
+    e.POST("/services", api.Register)
+    e.PUT("/services", api.Register)
+    e.DELETE("/services/:id", api.DeRegister)
 
     // Start server at localhost:8080
     e.Logger.Fatal(e.Start(":8080"))

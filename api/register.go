@@ -1,8 +1,6 @@
 package api
 
 import (
-	"fmt"
-
 	"net/http"
 	"github.com/labstack/echo"
 	consul_client "github.com/vietwow/getenv/pkg/consul"
@@ -11,7 +9,7 @@ import (
 )
 
 
-func Register(c echo.Context) {
+func Register(c echo.Context) error {
 	// Bind the input data to ExampleRequest
 	Request := new(model.RequestRegister)
 	if err := c.Bind(Request); err != nil {
@@ -19,7 +17,7 @@ func Register(c echo.Context) {
 	}
 
     //
-    err := consul_client.RegisterService(Request.AppName, Request.URL)
+    consul_client.RegisterService(Request.AppName, Request.URL)
 
 	return c.JSON(http.StatusCreated, Request.AppName)
 }
