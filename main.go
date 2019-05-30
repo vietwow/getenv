@@ -13,6 +13,7 @@ func main() {
     // e.GET("/register/:url", api.Register())
     // e.GET("/deregister/:url", api.DeRegister())
     // e.GET("/list/:url", api.List())
+    e.GET("/", api.HeathCheck)
     e.GET("/services", api.List)
     e.GET("/services/:AppName", api.GetURLFromAppName)
     e.POST("/services", api.RegisterService)
