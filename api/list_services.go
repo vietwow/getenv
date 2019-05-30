@@ -12,6 +12,7 @@ import (
 
 
 func List(c echo.Context) error {
+	// TODO
     // err := consul_client.ListAllService()
     services := "abc"
 

@@ -1,21 +1,11 @@
 package main
 
 import (
-
-	"gopkg.in/alecthomas/kingpin.v2"
-
 	"github.com/labstack/echo"
 	"github.com/vietwow/getenv/api"
 )
 
-var (
-    version          = "0.0.0"
-)
-
 func main() {
-    kingpin.Version(version)
-    kingpin.Parse()
-
     e := echo.New()
 
     // Routes
