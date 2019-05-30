@@ -56,7 +56,10 @@ func DeRegisterService(AppName string) {
 // }
 
 func GetURLFromAppName(AppName string) string {
-	c, err := consul.NewClient(consul.DefaultConfig())
+	config := consul.DefaultConfig()
+	config.Address = "consul:8500"
+	c, err := consul.NewClient(config)
+	
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -11,11 +11,10 @@ services:
       - '8400:8400'
       - '8500:8500'
       - '8600:53/udp'
-    environment:
-      
+
   getenv:
     image: vietwow/getenv:latest
+    ports:
+      - '8080:8080'
     depends_on:
       - consul
-    environment:
-      
