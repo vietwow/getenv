@@ -5,7 +5,7 @@ import (
 
 	"net/http"
 	"github.com/labstack/echo"
-	consul_client "github.com/vietwow/getenv/pkg/consul"
+	// consul_client "github.com/vietwow/getenv/pkg/consul"
 
 	"github.com/vietwow/getenv/model"
 )
@@ -19,7 +19,8 @@ func GetURL(c echo.Context) error {
 	}
 
     //
-    URL := consul_client.GetURLFromAppName(Request.AppName)
+    // URL := consul_client.GetURLFromAppName(Request.AppName)
+    URL := "hahaha"
 
 	return c.JSONBlob(
 		http.StatusOK,

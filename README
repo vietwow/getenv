@@ -1,4 +1,4 @@
 ```
-curl -XPOST -H "Content-Type: application/json" -d '{"app_name":"stg-quoinex-11", "url":"http://rc11-quoinex-api.quoinex.com"}'  http://localhost:8080/services/
+curl -XPOST -H "Content-Type: application/json" -d '{"app_name":"stg-quoinex-11", "url":"http://rc11-quoinex-api.quoinex.com"}'  http://localhost:8080/services
 ```
 
