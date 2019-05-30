@@ -9,7 +9,7 @@ import (
 )
 
 
-func DeRegister(c echo.Context) error {
+func DeRegisterService(c echo.Context) error {
 	// Bind the input data to ExampleRequest
 	Request := new(model.Request)
 	if err := c.Bind(Request); err != nil {
@@ -17,7 +17,7 @@ func DeRegister(c echo.Context) error {
 	}
 
     //
-    consul_client.DeRegisterService(Request.AppName)
+    consul_client.DeleteKeyValue(Request.AppName)
 
 	return c.NoContent(http.StatusNoContent)
 }

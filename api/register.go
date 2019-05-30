@@ -9,7 +9,7 @@ import (
 )
 
 
-func Register(c echo.Context) error {
+func RegisterService(c echo.Context) error {
 	// Bind the input data to ExampleRequest
 	Request := new(model.RequestRegister)
 	if err := c.Bind(Request); err != nil {
@@ -17,7 +17,7 @@ func Register(c echo.Context) error {
 	}
 
     //
-    consul_client.RegisterService(Request.AppName, Request.URL)
+    consul_client.StoreKeyValue(Request.AppName, Request.URL)
 
 	return c.JSON(http.StatusCreated, Request.AppName)
 }

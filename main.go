@@ -14,10 +14,10 @@ func main() {
     // e.GET("/deregister/:url", api.DeRegister())
     // e.GET("/list/:url", api.List())
     e.GET("/services", api.List)
-    e.GET("/services/:AppName", api.GetURL)
-    e.POST("/services", api.Register)
-    e.PUT("/services", api.Register)
-    e.DELETE("/services/:id", api.DeRegister)
+    e.GET("/services/:AppName", api.GetURLFromAppName)
+    e.POST("/services", api.RegisterService)
+    e.PUT("/services", api.RegisterService)
+    e.DELETE("/services/:id", api.DeRegisterService)
 
     // Start server at localhost:8080
     e.Logger.Fatal(e.Start(":8080"))

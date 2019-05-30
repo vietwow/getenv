@@ -12,8 +12,7 @@ import (
 // 	ConsulAgent *consul.Agent
 // }
 
-// register (or update) the service
-func RegisterService(AppName string, URL string) {
+func StoreKeyValue(key string, value string) {
 	config := consul.DefaultConfig()
 	config.Address = "consul:8500"
 	c, err := consul.NewClient(config)
@@ -21,17 +20,16 @@ func RegisterService(AppName string, URL string) {
 		log.Fatal(err)
 	}
 
-    pair := &consul.KVPair{Key: AppName, Value: []byte(URL)}
+    pair := &consul.KVPair{Key: key, Value: []byte(value)}
 
     if _, err := c.KV().Put(pair, nil); err != nil {
         log.Fatal(err)
     } else {
-    	log.Println("register (or update) service '", pair.Key, "' successfully")
+    	log.Println("store (or update) key '", pair.Key, "' successfully")
     }
 }
 
-// deregister the service
-func DeRegisterService(AppName string) {
+func DeleteKeyValue(key string) {
 	config := consul.DefaultConfig()
 	config.Address = "consul:8500"
 	c, err := consul.NewClient(config)
@@ -39,12 +37,12 @@ func DeRegisterService(AppName string) {
 		log.Fatal(err)
 	}
 
-    pair := &consul.KVPair{Key: AppName}
+    pair := &consul.KVPair{Key: key}
 
     if _, err := c.KV().Delete(pair.Key, nil); err != nil {
         log.Fatal(err)
     } else {
-        log.Println("deregister service '", pair.Key, "' successfully")
+        log.Println("remove key '", pair.Key, "' successfully")
     }
 }
 
@@ -59,7 +57,7 @@ func DeRegisterService(AppName string) {
 //     return err
 // }
 
-func GetURLFromAppName(AppName string) string {
+func GetKeyValue(key string) string {
 	config := consul.DefaultConfig()
 	config.Address = "consul:8500"
 	c, err := consul.NewClient(config)
@@ -68,17 +66,17 @@ func GetURLFromAppName(AppName string) string {
 		log.Fatal(err)
 	}
 
-	URL, _, err := c.KV().Get(AppName, nil)
+	kv, _, err := c.KV().Get(key, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if URL == nil {
-		// log.Println("Configuration empty")
+	if kv == nil {
+		log.Println("Configuration empty")
 		return ""
 	}
 
-	val := string(URL.Value)
+	value := string(kv.Value)
 
-	return val
+	return value
 }

@@ -6,21 +6,14 @@ import (
 	"net/http"
 	"github.com/labstack/echo"
 	consul_client "github.com/vietwow/getenv/pkg/consul"
-
-	// "github.com/vietwow/getenv/model"
 )
 
 
-func GetURL(c echo.Context) error {
-	// Bind the input data to ExampleRequest
-	// Request := new(model.Request)
-	// if err := c.Bind(Request); err != nil {
-	// 	return err
-	// }
+func GetURLFromAppName(c echo.Context) error {
 
     AppName := c.Param("AppName")
     //
-    URL := consul_client.GetURLFromAppName(AppName)
+    URL := consul_client.GetKeyValue(AppName)
 
     if URL == "" {
     	return c.NoContent(http.StatusNoContent)
