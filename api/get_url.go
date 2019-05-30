@@ -10,9 +10,8 @@ import (
 
 
 func GetURLFromAppName(c echo.Context) error {
-
     AppName := c.Param("AppName")
-    //
+
     URL := consul_client.GetKeyValue(AppName)
 
     if URL == "" {
