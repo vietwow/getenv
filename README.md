@@ -20,9 +20,14 @@ cd ../../charts/getenv && helm install --namespace devops -n getenv .
 ## Test
 
 ```
-curl -XPOST -H "Content-Type: application/json" -d '{"app_name":"stg-quoinex-11", "url":"http://rc11-quoinex-api.quoinex.com"}'  http://localhost/services
+curl -XPOST -H "Content-Type: application/json" -d '{"app_name":"stg-quoinex-11", "url":"http://rc11-quoinex-api.quoinex.com"}'  https://getenv.quoine.me/services
 ```
 
 ```
-curl -v -XGET http://localhost/services/stg-quoinex-11
+curl -XGET https://getenv.quoine.me/services/stg-quoinex-11
 ```
+
+```
+curl -XDELETE https://getenv.quoine.me/services/stg-quoinex-11
+```
+
