@@ -2,59 +2,75 @@ package consul_client
 
 import (
 	"time"
+	"log"
 
 	consul "github.com/hashicorp/consul/api"
 )
 
-type Service struct {
-	Name        string
-	TTL         time.Duration
-	ConsulAgent *consul.Agent
-}
+// type Service struct {
+// 	Name        string
+// 	URL        string
+// 	ConsulAgent *consul.Agent
+// }
 
-func RegisterService(addrs []string, ttl time.Duration) (*Service, error) {
-	s := new(Service)
-	s.Name = "webkv"
-	s.TTL = ttl
-
+// register (or update) the service
+func RegisterService(AppName string, URL string) {
 	c, err := consul.NewClient(consul.DefaultConfig())
 	if err != nil {
 		return nil, err
 	}
-	s.ConsulAgent = c.Agent()
 
-	serviceDef := &consul.AgentServiceRegistration{
-		Name: s.Name,
-		Check: &consul.AgentServiceCheck{
-			TTL: s.TTL.String(),
-		},
-	}
+    pair := &api.KVPair{Key: AppName, Value: []byte(URL)}
 
-	if err := s.ConsulAgent.ServiceRegister(serviceDef); err != nil {
+    if _, err := c.Put(pair, nil); err != nil {
+        log.Fatal(err)
+    } else {
+    	log.Println("register (or update) service '", pair.Key, "' successfully")
+    }
+}
+
+// deregister the service
+func DeRegisterService(AppName string, URL string) {
+	c, err := consul.NewClient(consul.DefaultConfig())
+	if err != nil {
 		return nil, err
 	}
-	go s.UpdateTTL(s.Check)
 
-	return s, nil
+    pair := &api.KVPair{Key: AppName}
+
+    if _, err := c.Delete(pair.Key, nil); err != nil {
+        log.Fatal(err)
+    } else {
+        log.Println("deregister service '", pair.Key, "' successfully")
+    }
 }
 
-func (s *Service) UpdateTTL(check func() (bool, error)) {
-	ticker := time.NewTicker(s.TTL / 2)
-	for range ticker.C {
-		s.update(check)
+// list all services
+func ListAllService() {
+	c, err := consul.NewClient(consul.DefaultConfig())
+	if err != nil {
+		return nil, err
 	}
+
+    // TODO
 }
 
-func (s *Service) update(check func() (bool, error)) {
-	ok, err := check()
-	if !ok {
-		log.Printf("err=\"Check failed\" msg=\"%s\"", err.Error())
-		if agentErr := s.ConsulAgent.FailTTL("service:"+s.Name, err.Error()); agentErr != nil {
-			log.Print(agentErr)
-		}
-	} else {
-		if agentErr := s.ConsulAgent.PassTTL("service:"+s.Name, ""); agentErr != nil {
-			log.Print(agentErr)
-		}
+func GetURLFromAppName(AppName string) {
+	c, err := consul.NewClient(consul.DefaultConfig())
+	if err != nil {
+		return nil, err
 	}
+
+	URL, _, err := consul.KV().Get(AppName, nil)
+	if err != nil {
+		fmt.Fprintf(w, "Error. %s", err)
+		return
+	}
+	if URL.Value == nil {
+		fmt.Fprintf(w, "Configuration empty")
+		return
+	}
+	val := string(URL.Value)
+
+	return val
 }

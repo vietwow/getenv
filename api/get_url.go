@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 
+	"net/http"
 	"github.com/labstack/echo"
 	consul_client "github.com/vietwow/getenv/pkg/consul"
 
@@ -18,7 +19,7 @@ func GetURL(c echo.Context) {
 	}
 
     //
-    URL := consul_client.RegisterService(Request.AppName)
+    URL := consul_client.GetURLFromAppName(Request.AppName)
 
 	return c.JSONBlob(
 		http.StatusOK,
