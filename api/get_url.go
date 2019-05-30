@@ -21,7 +21,6 @@ func GetURL(c echo.Context) error {
     AppName := c.Param("AppName")
     //
     URL := consul_client.GetURLFromAppName(AppName)
-    fmt.Println(URL)
 
 	return c.JSONBlob(
 		http.StatusOK,
