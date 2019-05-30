@@ -72,10 +72,12 @@ func GetURLFromAppName(AppName string) string {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	if URL == nil {
 		log.Println("Configuration empty")
-		return nil
+		return
 	}
+
 	val := string(URL.Value)
 
 	return val
