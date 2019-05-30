@@ -14,7 +14,9 @@ import (
 
 // register (or update) the service
 func RegisterService(AppName string, URL string) {
-	c, err := consul.NewClient(consul.DefaultConfig())
+	config := consul.DefaultConfig()
+	config.Address = "consul:8500"
+	c, err := consul.NewClient(config)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -30,7 +32,9 @@ func RegisterService(AppName string, URL string) {
 
 // deregister the service
 func DeRegisterService(AppName string) {
-	c, err := consul.NewClient(consul.DefaultConfig())
+	config := consul.DefaultConfig()
+	config.Address = "consul:8500"
+	c, err := consul.NewClient(config)
 	if err != nil {
 		log.Fatal(err)
 	}
