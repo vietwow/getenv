@@ -4,8 +4,6 @@ import (
 	"net/http"
 	"github.com/labstack/echo"
 	consul_client "github.com/vietwow/getenv/pkg/consul"
-
-	"github.com/vietwow/getenv/model"
 )
 
 
