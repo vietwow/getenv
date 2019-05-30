@@ -22,8 +22,7 @@ func GetURL(c echo.Context) error {
     //
     URL := consul_client.GetURLFromAppName(AppName)
 
-    if (URL == "")
-    {
+    if URL == "" {
     	return c.NoContent(http.StatusNoContent)
     }
 
