@@ -2,7 +2,7 @@ package consul_client
 
 import (
 	"log"
-
+    "fmt"
 	consul "github.com/hashicorp/consul/api"
 )
 
