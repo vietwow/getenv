@@ -19,7 +19,7 @@ func main() {
     e.PUT("/services", api.RegisterService)
     e.DELETE("/services/:id", api.DeRegisterService)
 
-    // Start server at localhost:8080
-    e.Logger.Fatal(e.Start(":8080"))
+    // Start server at localhost:80
+    e.Logger.Fatal(e.Start(":80"))
 
 }
