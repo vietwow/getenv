@@ -22,7 +22,7 @@ func GetURLFromAppName(c echo.Context) error {
 		http.StatusOK,
 		[]byte(
 		  fmt.Sprintf(`{
-		    "URL": %s
+		    "URL": %q
 		  }`, URL),
 		),
 	)
