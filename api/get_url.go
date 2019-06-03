@@ -21,9 +21,7 @@ func GetURLFromAppName(c echo.Context) error {
 	return c.JSONBlob(
 		http.StatusOK,
 		[]byte(
-		  fmt.Sprintf(`{
-		    "URL": %q
-		  }`, URL),
+		  fmt.Sprintf(`{"URL": %q}`, URL),
 		),
 	)
 }
